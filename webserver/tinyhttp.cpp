@@ -271,10 +271,13 @@ begin:
 		{
 			while((n = write(conn_sock, out_buf + nwrite, i)) != 0)
 			{
-				if(n == -1 && errno == EINTR)
-					continue;
-				else
-					goto out;
+				if(n == -1)
+				{
+					if(errno == EINTR)
+						continue;
+					else
+						goto out;
+				}
 				nwrite += n;
 			}
 		}
@@ -285,10 +288,13 @@ begin:
 				while((n = write(conn_sock, out_buf + nwrite, i)) != 0)
 				{
 					cout<<n<<endl;
-					if(n == -1 && errno == EINTR)
-						continue;
-					else
-						break;
+					if(n == -1)
+					{
+						if(errno == EINTR)
+							continue;
+						else
+							goto out;
+					}
 					nwrite += n;
 				}
 				string real_url = tyhp_make_real_url(phttphdr->url);
