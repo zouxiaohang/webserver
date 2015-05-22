@@ -3,7 +3,7 @@ PROJECT(webserver)
 
 SET(CMAKE_VERBOSE_MAKEFILE ON)
 SET(CMAKE_CXX_COMPILER g++)
-ADD_COMPILE_OPTIONS("-std=c++11")
+ADD_COMPILE_OPTIONS("-Wall")
 SET(WEBSERVER_SOURCES
 	webserver/parse.cpp
 	webserver/tinyhttp.cpp
