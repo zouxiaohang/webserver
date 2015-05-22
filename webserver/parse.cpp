@@ -89,7 +89,7 @@ bool tyhp_parse_http_request(const string& http_request, tyhp_http_header_t *pht
 	}
 
 	string crlf("\r\n"), crlfcrlf("\r\n\r\n");
-	int prev = 0, next = 0;
+	size_t prev = 0, next = 0;
 
 	//解析http请求包的起始行
 	if((next = http_request.find(crlf, prev)) != string::npos)
@@ -108,7 +108,7 @@ bool tyhp_parse_http_request(const string& http_request, tyhp_http_header_t *pht
 	}
 
 	//查找"\r\n\r\n"的位置
-	int pos_crlfcrlf = http_request.find(crlfcrlf, prev);
+	size_t pos_crlfcrlf = http_request.find(crlfcrlf, prev);
 	if(pos_crlfcrlf == string::npos)
 	{
 		perror("tyhp_parse_http_request: http_request has not a \"\r\n\r\n\"");
@@ -126,7 +126,7 @@ bool tyhp_parse_http_request(const string& http_request, tyhp_http_header_t *pht
 		{
 			//buff保存了一行
 			buff = http_request.substr(prev + 2, next - prev - 2);
-			int end = 0;
+			size_t end = 0;
 			//跳过前置空白符，到达首部关键字的起始位置
 			for(; isblank(buff[end]); ++end)
 				;
